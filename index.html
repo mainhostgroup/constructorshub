@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Contractors Hub | Find Construction Companies & Contractors</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<style>
+:root{
+  --primary:#7c3aed;
+  --primary-dark:#5b21b6;
+  --secondary:#ede9fe;
+  --soft:#f5f3ff;
+  --dark:#1f1b2e;
+  --muted:#6b7280;
+  --bg:#faf9ff;
+  --card:#ffffff;
+  --border:#ddd6fe;
+  --accent:#c4b5fd;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--dark);
+}
+a{text-decoration:none}
+
+/* NAV */
+nav{
+  background:linear-gradient(135deg,#8b5cf6,#7c3aed);
+  padding:1rem 2rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 8px 30px rgba(91,33,182,.14);
+}
+nav strong{
+  color:#fff;
+  font-size:1.2rem;
+  letter-spacing:.3px;
+}
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:1rem;
+  margin:0;
+  padding:0;
+  align-items:center;
+}
+nav a{
+  color:#fff;
+  font-weight:700;
+}
+.nav-cta{
+  background:rgba(255,255,255,.16);
+  padding:.58rem 1rem;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.22);
+  backdrop-filter:blur(8px);
+}
+
+/* HERO */
+.hero{
+  min-height:360px;
+  background:
+    linear-gradient(rgba(31,27,46,.55),rgba(91,33,182,.42)),
+    url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1600&q=80') center/cover;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  text-align:center;
+  padding:0 1rem;
+}
+.hero-content{max-width:950px}
+.hero h1{
+  font-size:2.45rem;
+  max-width:920px;
+  line-height:1.12;
+  margin:0 auto .9rem;
+}
+.hero p{
+  margin:0 auto;
+  max-width:740px;
+  color:rgba(255,255,255,.92);
+  font-size:1.03rem;
+}
+
+/* SECTIONS */
+section{padding:3rem 2rem}
+h2{margin:0 0 1.2rem}
+
+/* FILTERS */
+.filters{
+  background:var(--card);
+  padding:1.5rem;
+  border-radius:20px;
+  box-shadow:0 10px 26px rgba(91,33,182,.07);
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1rem;
+  margin-bottom:2.5rem;
+  border:1px solid var(--border);
+}
+.filters input,.filters select{
+  padding:.78rem .8rem;
+  border-radius:12px;
+  border:1px solid var(--border);
+  outline:none;
+  background:#fff;
+  color:var(--dark);
+}
+.filters input:focus,.filters select:focus{
+  border-color:rgba(124,58,237,.85);
+  box-shadow:0 0 0 4px rgba(124,58,237,.14);
+}
+.filters button{
+  background:linear-gradient(135deg,#8b5cf6,#7c3aed);
+  color:#fff;
+  border:none;
+  border-radius:12px;
+  padding:.82rem;
+  font-weight:800;
+  cursor:pointer;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.filters button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 12px 24px rgba(91,33,182,.15);
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:1.5rem;
+}
+
+/* CARD */
+.card{
+  background:var(--card);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 12px 26px rgba(91,33,182,.08);
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  border:1px solid rgba(124,58,237,.10);
+  transition:transform .22s ease, box-shadow .22s ease;
+}
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 42px rgba(91,33,182,.13);
+}
+.card:hover .profile-img img{
+  transform:scale(1.04);
+}
+
+/* BADGES */
+.badges{
+  position:absolute;
+  top:12px;
+  left:12px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  z-index:10;
+}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:.35rem .6rem;
+  border-radius:999px;
+  font-size:.72rem;
+  font-weight:900;
+  border:1px solid rgba(0,0,0,.05);
+  background:rgba(255,255,255,.9);
+  color:#1f1b2e;
+}
+.badge.featured{
+  background:#ede9fe;
+  color:#5b21b6;
+}
+.badge.verified{
+  background:#ddd6fe;
+  color:#4c1d95;
+}
+.badge.company{
+  background:#f3e8ff;
+  color:#6b21a8;
+}
+.badge.contractor{
+  background:#eef2ff;
+  color:#3730a3;
+}
+
+/* IMAGE */
+.profile-img{
+  height:190px;
+  background:#f3f4f6;
+}
+.profile-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .22s ease;
+}
+
+/* BODY */
+.card-body{
+  padding:1rem 1rem 1.1rem;
+  display:flex;
+  flex-direction:column;
+  gap:.45rem;
+}
+.name-row{
+  display:flex;
+  justify-content:flex-start;
+  align-items:flex-start;
+  gap:.75rem;
+}
+.card-body strong{
+  font-size:1.04rem;
+  line-height:1.2;
+}
+.details{
+  font-size:.92rem;
+  color:var(--muted);
+  margin:0;
+}
+
+.services{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:.2rem;
+}
+.service-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:.35rem .58rem;
+  border-radius:999px;
+  background:#f5f3ff;
+  border:1px solid rgba(124,58,237,.16);
+  font-size:.82rem;
+  color:var(--primary-dark);
+  font-weight:700;
+}
+
+.card-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.7rem;
+  margin-top:auto;
+  padding-top:.5rem;
+}
+.view-profile{
+  background:#f5f3ff;
+  color:var(--primary-dark);
+  padding:.76rem;
+  border-radius:14px;
+  text-align:center;
+  font-weight:900;
+  border:1px solid rgba(91,33,182,.12);
+  cursor:pointer;
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.view-profile:hover{
+  transform:translateY(-1px);
+  box-shadow:0 12px 22px rgba(91,33,182,.10);
+  background:#ede9fe;
+}
+
+.whatsapp{
+  background:linear-gradient(135deg,#c4b5fd,#a78bfa);
+  color:#2e1065;
+  padding:.76rem;
+  border-radius:14px;
+  text-align:center;
+  font-weight:900;
+  border:1px solid rgba(91,33,182,.10);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.whatsapp:hover{
+  transform:translateY(-1px);
+  box-shadow:0 12px 22px rgba(91,33,182,.12);
+}
+
+/* PAGINATION */
+.pagination{
+  display:flex;
+  justify-content:center;
+  gap:.5rem;
+  margin-top:2rem;
+  flex-wrap:wrap;
+}
+.pagination button{
+  padding:.55rem .85rem;
+  border:none;
+  border-radius:10px;
+  background:#f3e8ff;
+  cursor:pointer;
+  font-weight:800;
+  color:var(--primary-dark);
+}
+.pagination button.active{
+  background:var(--primary);
+  color:#fff;
+}
+
+/* FOOTER */
+footer{
+  background:#1f1b2e;
+  color:#fff;
+  text-align:center;
+  padding:2rem;
+  margin-top:3rem;
+}
+
+/* AUTOCOMPLETE */
+.autocomplete-wrap{position:relative}
+.autocomplete-box{
+  position:absolute;
+  top:calc(100% + 8px);
+  left:0;
+  right:0;
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 12px 30px rgba(91,33,182,.12);
+  max-height:240px;
+  overflow:auto;
+  display:none;
+  z-index:500;
+  border:1px solid rgba(124,58,237,.15);
+}
+.autocomplete-box div{
+  padding:.7rem .85rem;
+  cursor:pointer;
+  border-bottom:1px solid #f5effc;
+  font-weight:700;
+  color:var(--dark);
+}
+.autocomplete-box div:hover{
+  background:#faf5ff;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(17, 12, 30, .72);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:1rem;
+  z-index:2000;
+}
+.modal.active{
+  display:flex;
+}
+.modal-content{
+  width:min(960px,100%);
+  background:#fff;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 25px 60px rgba(0,0,0,.25);
+  position:relative;
+  animation:fadeUp .25s ease;
+}
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(14px)}
+  to{opacity:1; transform:translateY(0)}
+}
+.modal-close{
+  position:absolute;
+  top:14px;
+  right:14px;
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:50%;
+  background:rgba(255,255,255,.95);
+  color:#1f1b2e;
+  font-size:1.25rem;
+  font-weight:900;
+  cursor:pointer;
+  z-index:5;
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+.modal-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  min-height:520px;
+}
+.slider-wrap{
+  position:relative;
+  background:#f3f4f6;
+}
+.slider-image{
+  width:100%;
+  height:100%;
+  min-height:520px;
+  object-fit:cover;
+  display:block;
+}
+.slide-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:46px;
+  height:46px;
+  border:none;
+  border-radius:50%;
+  background:rgba(255,255,255,.92);
+  cursor:pointer;
+  font-size:1.2rem;
+  font-weight:900;
+  color:#2e1065;
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+.slide-btn.prev{left:14px}
+.slide-btn.next{right:14px}
+
+.slide-counter{
+  position:absolute;
+  left:16px;
+  bottom:16px;
+  background:rgba(31,27,46,.75);
+  color:#fff;
+  padding:.45rem .8rem;
+  border-radius:999px;
+  font-size:.85rem;
+  font-weight:800;
+}
+
+.modal-info{
+  padding:2rem 1.4rem;
+  display:flex;
+  flex-direction:column;
+  gap:.8rem;
+}
+.modal-info h3{
+  margin:0;
+  font-size:1.45rem;
+}
+.modal-meta{
+  color:var(--muted);
+  font-size:.95rem;
+  margin:0;
+}
+.modal-services{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:.2rem;
+}
+.modal-desc{
+  margin:.25rem 0;
+  color:#4b5563;
+  line-height:1.6;
+}
+.modal-contact{
+  margin-top:auto;
+  display:flex;
+  gap:.8rem;
+  flex-wrap:wrap;
+}
+.modal-contact a{
+  padding:.82rem 1rem;
+  border-radius:14px;
+  font-weight:800;
+  text-align:center;
+}
+.modal-whatsapp{
+  background:linear-gradient(135deg,#c4b5fd,#a78bfa);
+  color:#2e1065;
+  border:1px solid rgba(91,33,182,.1);
+}
+.modal-secondary{
+  background:#f5f3ff;
+  color:var(--primary-dark);
+  border:1px solid rgba(91,33,182,.1);
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .modal-grid{
+    grid-template-columns:1fr;
+  }
+  .slider-image{
+    min-height:300px;
+    max-height:360px;
+  }
+  .card-actions{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:768px){
+  section{padding:2.2rem 1rem}
+  nav{padding:1rem}
+  nav ul{gap:.6rem}
+  .hero h1{font-size:1.8rem}
+  .hero p{font-size:.95rem}
+}
+
+
+/* MOBILE NAV */
+@media(max-width:768px){
+  #menuToggle{display:block}
+  #navMenu{
+    position:absolute;
+    top:70px;
+    right:10px;
+    background:#fff;
+    flex-direction:column;
+    padding:1rem;
+    border-radius:14px;
+    display:none;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+  }
+  #navMenu a{color:#1f1b2e}
+  #navMenu.active{display:flex}
+}
+
+/* MODAL TABS FOR MOBILE */
+.modal-tabs{
+  display:flex;
+  border-bottom:1px solid #eee;
+}
+.modal-tab{
+  flex:1;
+  text-align:center;
+  padding:.8rem;
+  cursor:pointer;
+  font-weight:800;
+}
+.modal-tab.active{
+  border-bottom:3px solid #7c3aed;
+  color:#7c3aed;
+}
+
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+@media(max-width:900px){
+  .modal-grid{display:block}
+}
+
+/* PACKAGES */
+.packages{
+  background:#fff;
+  border-radius:20px;
+  padding:1.5rem;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+.package{
+  border:1px solid #eee;
+  border-radius:14px;
+  margin-bottom:1rem;
+}
+.package-header{
+  padding:1rem;
+  font-weight:800;
+  cursor:pointer;
+  background:#f5f3ff;
+}
+.package-content{
+  display:none;
+  padding:1rem;
+}
+.package.active .package-content{
+  display:block;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+  <strong>Contractors Hub</strong>
+  <button id="menuToggle" style="background:none;border:none;color:#fff;font-size:1.4rem;display:none;">☰</button>
+  <ul id="navMenu">
+    <li><a href="#all">Find Companies</a></li>
+    <li><a href="#packages">Lead Packages</a></li>
+    <li>
+      <a class="nav-cta" href="#">List Your Business</a>
+    </li>
+  </ul>
+</nav>
+
+
+<div class="hero">
+  <div class="hero-content">
+    <h1>Find Construction Companies, Builders & Sub-Contractors Across South Africa</h1>
+    <p>Browse trusted businesses for building, renovations, roofing, plastering, paving, electrical work, plumbing and more.</p>
+  </div>
+</div>
+
+<section id="all">
+
+  <div class="filters">
+    <div class="autocomplete-wrap">
+      <input type="text" id="areaFilter" placeholder="Search township, city or area..." autocomplete="off" />
+      <div class="autocomplete-box" id="autoBox"></div>
+    </div>
+
+    <select id="provinceFilter">
+      <option value="">All Provinces</option>
+      <option>Gauteng</option>
+      <option>Western Cape</option>
+      <option>KwaZulu-Natal</option>
+      <option>Eastern Cape</option>
+      <option>Limpopo</option>
+      <option>Mpumalanga</option>
+      <option>North West</option>
+      <option>Free State</option>
+      <option>Northern Cape</option>
+    </select>
+
+    <select id="categoryFilter">
+      <option value="">All Business Types</option>
+      <option>Construction Company</option>
+      <option>General Contractor</option>
+      <option>Specialist Contractor</option>
+      <option>Renovation Company</option>
+    </select>
+
+    <select id="serviceFilter">
+      <option value="">All Services</option>
+      <option>House Building</option>
+      <option>Renovations</option>
+      <option>Roof Installation</option>
+      <option>Paving</option>
+      <option>Plastering</option>
+      <option>Painting</option>
+      <option>Electrical Work</option>
+      <option>Plumbing</option>
+      <option>Tiling</option>
+      <option>Ceilings</option>
+      <option>Boundary Walls</option>
+      <option>Project Management</option>
+    </select>
+
+    <button onclick="applyFilters()">Apply Filters</button>
+  </div>
+
+  <h2>🏗️ Featured Companies</h2>
+  <div id="featured" class="grid"></div>
+
+  <h2>All Listings</h2>
+  <div id="listings" class="grid"></div>
+  <div id="pagination" class="pagination"></div>
+
+</section>
+
+<footer>© 2026 BuildList SA</footer>
+
+<div class="modal" id="profileModal">
+  <div class="modal-content">
+    <button class="modal-close" id="closeModalBtn">&times;</button>
+    <div class="modal-grid">
+      <div class="slider-wrap">
+        <img id="sliderImage" class="slider-image" src="" alt="Company project image">
+        <button class="slide-btn prev" id="prevSlide">❮</button>
+        <button class="slide-btn next" id="nextSlide">❯</button>
+        <div class="slide-counter" id="slideCounter">1 / 1</div>
+      </div>
+      <div class="modal-info">
+        <h3 id="modalName"></h3>
+        <p class="modal-meta" id="modalLocation"></p>
+        <p class="modal-meta" id="modalCategory"></p>
+        <p class="modal-meta" id="modalExperience"></p>
+        <p class="modal-desc" id="modalDescription"></p>
+        <div class="modal-services" id="modalServices"></div>
+        <div class="modal-contact">
+          <a id="modalWhatsapp" class="modal-whatsapp" href="#" target="_blank" rel="noopener">Contact Business</a>
+          <a href="#all" class="modal-secondary" id="modalCloseLink">Close Profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+const PER_PAGE = 9;
+let currentPage = 1;
+let filteredData = [];
+let activeCompany = null;
+let activeSlideIndex = 0;
+
+const areaList = [
+  "Soweto","Tembisa","Mamelodi","Soshanguve","Alexandra","Katlehong","Vosloorus","Midrand","Centurion",
+  "Khayelitsha","Mitchells Plain","Gugulethu","Nyanga","Bellville","Paarl","George",
+  "Umlazi","KwaMashu","Inanda","Phoenix","Chatsworth","Newcastle",
+  "Mdantsane","Zwide","Motherwell","Mthatha","East London",
+  "Seshego","Polokwane","Thohoyandou","Giyani",
+  "Nelspruit","Emalahleni","Middelburg",
+  "Mahikeng","Rustenburg","Klerksdorp",
+  "Botshabelo","Welkom","Bloemfontein",
+  "Kimberley","Galeshewe","Upington", "Kuruman"
+];
+
+const serviceIcons = {
+  "House Building":"🏠",
+  "Renovations":"🧱",
+  "Roof Installation":"🏘️",
+  "Paving":"🛣️",
+  "Plastering":"🪚",
+  "Painting":"🎨",
+  "Electrical Work":"⚡",
+  "Plumbing":"🚰",
+  "Tiling":"⬜",
+  "Ceilings":"📏",
+  "Boundary Walls":"🧱",
+  "Project Management":"📋"
+};
+
+const companyData = [
+  {
+    id:1,
+    name:"A-D building construction",
+    area:"Kuruman",
+    province:"Northern Cape",
+    category:"Construction Company",
+    services:["House Building","Renovations","Roof Installation","Project Management"],
+    speciality:"Residential Construction",
+    experience:"8 years experience",
+    featured:false,
+    verified:false,
+    type:"Company",
+    description:"A-D building construction focuses on residential housing, home extensions, roofing and complete project delivery for private clients and small developments.",
+    image:"images/constructors/id003/id001.jpg",
+    gallery:[
+      "images/constructors/id003/id002.jpg",
+      "images/constructors/id003/id003.jpg",
+        "images/constructors/id003/id004.jpg",
+        "images/constructors/id003/id005.jpg",
+      "images/constructors/id003/id006.jpg"
+    ],
+    whatsapp:"https://wa.me/27821234567"
+  },
+  {
+    id:2,
+    name:"Tsalach Construction",
+    area:"Tembisa",
+    province:"Gauteng",
+    category:"General Contractor",
+    services:["Plastering","Painting","Tiling","Ceilings"],
+    speciality:"Finishes & Interior Work",
+    experience:"6 years experience",
+    featured:false,
+    verified:true,
+    type:"Contractor",
+    description:"Tsalach Construction Company (TCC) delivers exceptional workmanship and professionalism. Their team is reliable, well-organised, and committed to quality from start to finish. Communication was clear throughout the project, timelines were respected, and the final results exceeded expectations. TCC demonstrates strong attention to detail, integrity, and a genuine commitment to client satisfaction. If you’re looking for a construction company you can trust to deliver quality work, TCC is a solid choice",
+    image:"images/constructors/id005/id001.jpg",
+    gallery:[
+      "images/constructors/id005/id001.jpg",
+      "images/constructors/id005/id002.jpg",
+      "images/constructors/id005/id003.jpg",
+        "images/constructors/id005/id004.jpg",
+        "images/constructors/id005/id005.jpg",
+    ],
+    whatsapp:"https://wa.me/27829876543"
+  },
+  {
+    id:3,
+    name:"Dynamic Construction & Development",
+    area:"Durban",
+    province:"Kwazulu Natal",
+    category:"Construction Company",
+    services:["House Building","Boundary Walls","Paving","Renovations"],
+    speciality:"Renovations & Home Builds",
+    experience:"10 years experience",
+    featured:true,
+    verified:true,
+    type:"Company",
+    description:"Dynamic Construction and development delivers bricklaying, paving, boundary wall construction and complete structural home projects in township and suburban areas.",
+    image:"images/constructors/id002/id002.jpg",
+    gallery:[
+      "images/constructors/id002/id002.jpg",
+      "images/constructors/id002/id003.jpg",
+      "images/constructors/id002/id004.jpg"
+    ],
+    whatsapp:"https://wa.me/27825550101"
+  },
+  {
+    id:4,
+    name:"Lefosa Construction",
+    area:"Polowane",
+    province:"Limpopo",
+    category:"Specialist Contractor",
+    services:["Roof Installation","Ceilings","Painting"],
+    speciality:"Roofing & Ceilings",
+    experience:"7 years experience",
+    featured:false,
+    verified:false,
+    type:"Contractor",
+    description:"Lefosa Construction has over a decade of experience in home residential home constructions across Limpopo and North West. We manage projects from start to finish to deliver eceptional work to our clients.",
+    image:"https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?auto=format&fit=crop&w=900&q=80",
+    gallery:[
+      "https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1200&q=80"
+    ],
+    whatsapp:"https://wa.me/27719923408"
+  },
+  {
+    id:5,
+    name:"BEN Construction",
+    area:"Mamelodi",
+    province:"Gauteng",
+    category:"Specialist Contractor",
+    services:["Plumbing","Renovations","Tiling"],
+    speciality:"Bathrooms & Plumbing Installations",
+    experience:"5 years experience",
+    featured:false,
+    verified:true,
+    type:"Contractor",
+    description:"Precision Plumbing & Build provides plumbing upgrades, bathroom renovations, tiling and repair work for residential and small commercial projects.",
+    image:"https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=900&q=80",
+    gallery:[
+      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1200&q=80"
+    ],
+    whatsapp:"https://wa.me/27826660101"
+  },
+  {
+    id:6,
+    name:"Madimas Construction",
+    area:"Mabopane",
+    province:"Gauteng",
+    category:"Home Construction Company",
+    services:["Renovations","Painting","Plastering","Ceilings", "construction", "Project management"],
+    speciality:"Home Upgrades & Extensions",
+    experience:"12 years experience",
+    featured:true,
+    verified:true,
+    type:"Company",
+    description:"Registered Home Construction service provider based in the North of Pretoria and we operate within the surrounding areas and North West.",
+    image:"images/constructors/id006/id001.jpg",
+    gallery:[
+      "images/constructors/id006/id001.jpg",
+      "images/constructors/id006/id002.jpg",
+      "images/constructors/id006/id003.jpg",
+        "images/constructors/id006/id004.jpg",
+        "images/constructors/id006/id005.jpg",
+        "images/constructors/id006/id006.jpg"
+    ],
+    whatsapp:"https://wa.me/27825550999"
+  },
+  {
+    id:7,
+    name:"Site Builders",
+    area:"Pretoria North",
+    province:"Gauteng",
+    category:"Contractor",
+    services:["Home construction","Slabs", "Renovations","Tiling"],
+    speciality:"Domestic & Small Home Construction",
+    experience:"1.5 years experience",
+    featured:true,
+    verified:false,
+    type:"Contractor",
+    description:"House plans, construction, compliance-focused upgrades and site coordination for smaller developments.",
+    image:"images/constructors/id007/id001.jpg",
+    gallery:[
+      "images/constructors/id007/id001.jpg",
+      "images/constructors/id007/id002.jpg",
+      "images/constructors/id007/id003.jpg",
+      "images/constructors/id007/id004.jpg",
+    ],
+    whatsapp:"https://wa.me/27812797778"
+  },
+  {
+    id:8,
+    name:"Groupwork Builders",
+    area:"Soshanguve",
+    province:"Gauteng",
+    category:"Construction Company",
+    services:["Paving","Boundary Walls","House Building","Renovations"],
+    speciality:"Groundworks & Structural Builds",
+    experience:"3 year experience",
+    featured:true,
+    verified:true,
+    type:"Company",
+    description:"Groupwork Builders focuses on delivering affordable building packages for the township economy to attain their dream homes with us! From architectural and house plans, to site preparation and structural building packages for your project. All our clients get 12 Month Service Labour Gauranteed! ",
+    image:"images/constructors/id008/id013.jpg",
+    gallery:[
+      "images/constructors/id008/id011.jpg",
+      "images/constructors/id008/id012.jpg",
+      "images/constructors/id008/id013.jpg",
+      "images/constructors/id008/id014.jpg",
+      "images/constructors/id008/id015.jpg",
+        "images/constructors/id008/id016.jpg",
+        "images/constructors/id008/id017.jpg",
+        "images/constructors/id008/id018.jpg",
+    ],
+    whatsapp:"https://wa.me/27812797778"
+  }
+];
+
+const areaInput = document.getElementById('areaFilter');
+const autoBox = document.getElementById('autoBox');
+const profileModal = document.getElementById('profileModal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const prevSlideBtn = document.getElementById('prevSlide');
+const nextSlideBtn = document.getElementById('nextSlide');
+const sliderImage = document.getElementById('sliderImage');
+const slideCounter = document.getElementById('slideCounter');
+const modalName = document.getElementById('modalName');
+const modalLocation = document.getElementById('modalLocation');
+const modalCategory = document.getElementById('modalCategory');
+const modalExperience = document.getElementById('modalExperience');
+const modalDescription = document.getElementById('modalDescription');
+const modalServices = document.getElementById('modalServices');
+const modalWhatsapp = document.getElementById('modalWhatsapp');
+const modalCloseLink = document.getElementById('modalCloseLink');
+
+function showSuggestions(){
+  const val = areaInput.value.trim().toLowerCase();
+  autoBox.innerHTML = '';
+  if(!val){
+    autoBox.style.display='none';
+    return;
+  }
+
+  const extra = companyData.map(c => c.area);
+  const combined = [...new Set([...areaList, ...extra])];
+
+  const matches = combined
+    .filter(a => a.toLowerCase().includes(val))
+    .slice(0, 12);
+
+  matches.forEach(name=>{
+    const div=document.createElement('div');
+    div.textContent=name;
+    div.onclick=()=>{
+      areaInput.value=name;
+      autoBox.style.display='none';
+      applyFilters();
+    };
+    autoBox.appendChild(div);
+  });
+
+  autoBox.style.display = matches.length ? 'block' : 'none';
+}
+
+document.addEventListener('click', (e)=>{
+  if(!e.target.closest('.autocomplete-wrap')) autoBox.style.display='none';
+});
+
+areaInput.addEventListener('input', ()=>{
+  showSuggestions();
+  applyFilters();
+});
+
+function iconForService(service){
+  return serviceIcons[service] || "🏗️";
+}
+
+function badgeClass(type){
+  const x = (type || "").toLowerCase();
+  if(x.includes("company")) return "company";
+  if(x.includes("contractor")) return "contractor";
+  return "";
+}
+
+function createCard(c){
+  const card=document.createElement('div');
+  card.className='card';
+
+  const badges=document.createElement('div');
+  badges.className='badges';
+
+  if(c.featured){
+    const b=document.createElement('span');
+    b.className='badge featured';
+    b.textContent='⭐ Featured';
+    badges.appendChild(b);
+  }
+
+  if(c.verified){
+    const b=document.createElement('span');
+    b.className='badge verified';
+    b.textContent='✅ Verified';
+    badges.appendChild(b);
+  }
+
+  if(c.type){
+    const b=document.createElement('span');
+    b.className='badge ' + badgeClass(c.type);
+    b.textContent = c.type === "Company" ? "🏢 Company" : "🛠️ Contractor";
+    badges.appendChild(b);
+  }
+
+  card.appendChild(badges);
+
+  const img=document.createElement('div');
+  img.className='profile-img';
+  img.innerHTML=`<img src="${c.image}" alt="${c.name}">`;
+
+  const body=document.createElement('div');
+  body.className='card-body';
+
+  const servicePills = (c.services || []).slice(0, 6).map(service => {
+    const icon = iconForService(service);
+    return `<span class="service-pill">${icon} ${service}</span>`;
+  }).join('');
+
+  body.innerHTML=`
+    <div class="name-row">
+      <strong>${c.name}</strong>
+    </div>
+    <p class="details">📍 ${c.area}, ${c.province}</p>
+    <p class="details">🏗️ ${c.speciality}</p>
+    <p class="details">🧰 ${c.category}</p>
+    <p class="details">📆 ${c.experience}</p>
+    <div class="services">${servicePills}</div>
+    <div class="card-actions">
+      <button class="view-profile" type="button">View Profile</button>
+      <a class="whatsapp" href="${c.whatsapp}" target="_blank" rel="noopener">Contact Business</a>
+    </div>
+  `;
+
+  body.querySelector('.view-profile').addEventListener('click', ()=> openProfile(c));
+
+  card.append(img,body);
+  return card;
+}
+
+function renderFeatured(){
+  const f=document.getElementById('featured');
+  f.innerHTML='';
+  companyData
+    .filter(c=>c.featured)
+    .slice(0, 9)
+    .forEach(c=>f.appendChild(createCard(c)));
+}
+
+function renderListings(){
+  const l=document.getElementById('listings');
+  l.innerHTML='';
+  const start=(currentPage-1)*PER_PAGE;
+  filteredData.slice(start,start+PER_PAGE).forEach(c=>l.appendChild(createCard(c)));
+  renderPagination();
+}
+
+function renderPagination(){
+  const p=document.getElementById('pagination');
+  p.innerHTML='';
+  const pages=Math.ceil(filteredData.length/PER_PAGE) || 1;
+  for(let i=1;i<=pages;i++){
+    const b=document.createElement('button');
+    b.textContent=i;
+    if(i===currentPage) b.classList.add('active');
+    b.onclick=()=>{currentPage=i; renderListings()};
+    p.appendChild(b);
+  }
+}
+
+function applyFilters(){
+  const area = areaInput.value.trim().toLowerCase();
+  const prov = document.getElementById('provinceFilter').value;
+  const category = document.getElementById('categoryFilter').value;
+  const service = document.getElementById('serviceFilter').value;
+
+  filteredData = companyData.filter(c =>
+    (!area || (c.area+' '+c.province+' '+c.name+' '+(c.services||[]).join(' ')+' '+c.category+' '+c.speciality)
+      .toLowerCase().includes(area)) &&
+    (!prov || c.province === prov) &&
+    (!category || c.category === category) &&
+    (!service || (c.services||[]).includes(service))
+  );
+
+  filteredData.sort((a,b)=>
+    (b.featured - a.featured) ||
+    (b.verified - a.verified) ||
+    a.name.localeCompare(b.name)
+  );
+
+  currentPage = 1;
+  renderListings();
+}
+
+function openProfile(company){
+  activeCompany = company;
+  activeSlideIndex = 0;
+
+  modalName.textContent = company.name;
+  modalLocation.textContent = `📍 ${company.area}, ${company.province}`;
+  modalCategory.textContent = `🧰 ${company.category} • ${company.speciality}`;
+  modalExperience.textContent = `📆 ${company.experience}`;
+  modalDescription.textContent = company.description || 'Professional construction services with completed project examples.';
+  modalWhatsapp.href = company.whatsapp;
+
+  modalServices.innerHTML = '';
+  (company.services || []).forEach(service=>{
+    const pill = document.createElement('span');
+    pill.className = 'service-pill';
+    pill.textContent = `${iconForService(service)} ${service}`;
+    modalServices.appendChild(pill);
+  });
+
+  updateSlide();
+  profileModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProfile(){
+  profileModal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function updateSlide(){
+  if(!activeCompany || !activeCompany.gallery || !activeCompany.gallery.length){
+    sliderImage.src = activeCompany?.image || '';
+    slideCounter.textContent = '1 / 1';
+    return;
+  }
+
+  const gallery = activeCompany.gallery;
+  sliderImage.src = gallery[activeSlideIndex];
+  slideCounter.textContent = `${activeSlideIndex + 1} / ${gallery.length}`;
+}
+
+function nextSlide(){
+  if(!activeCompany || !activeCompany.gallery || !activeCompany.gallery.length) return;
+  activeSlideIndex = (activeSlideIndex + 1) % activeCompany.gallery.length;
+  updateSlide();
+}
+
+function prevSlide(){
+  if(!activeCompany || !activeCompany.gallery || !activeCompany.gallery.length) return;
+  activeSlideIndex = (activeSlideIndex - 1 + activeCompany.gallery.length) % activeCompany.gallery.length;
+  updateSlide();
+}
+
+nextSlideBtn.addEventListener('click', nextSlide);
+prevSlideBtn.addEventListener('click', prevSlide);
+closeModalBtn.addEventListener('click', closeProfile);
+modalCloseLink.addEventListener('click', (e)=>{
+  e.preventDefault();
+  closeProfile();
+});
+
+profileModal.addEventListener('click', (e)=>{
+  if(e.target === profileModal) closeProfile();
+});
+
+document.addEventListener('keydown', (e)=>{
+  if(!profileModal.classList.contains('active')) return;
+  if(e.key === 'Escape') closeProfile();
+  if(e.key === 'ArrowRight') nextSlide();
+  if(e.key === 'ArrowLeft') prevSlide();
+});
+
+renderFeatured();
+filteredData = [...companyData];
+applyFilters();
+</script>
+
+</body>
+</html>
